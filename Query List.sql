@@ -213,15 +213,14 @@ INNER JOIN country On city.country_id = country.country_id;
 
 -- 7h:
 
-SELECT * FROM rental;
+SELECT * FROM inventory;
 
 SELECT 
 	category.name,
-    SUM(payment.amount)
+    SUM(payment.amount) AS Total_Revenue
 FROM category
 INNER JOIN film_category ON category.category_id = film_category.category_id
-INNER JOIN film ON film.film_id = film.film_id
-INNER JOIN inventory ON inventory.film_id = film.film_id
+INNER JOIN inventory ON inventory.film_id = film_category.film_id
 INNER JOIN rental ON inventory.inventory_id = rental.inventory_id
 INNER JOIN payment ON rental.rental_id = payment.rental_id
 GROUP BY category.name
@@ -233,11 +232,10 @@ LIMIT 5;
 CREATE VIEW Top_Five_Categories AS
 SELECT 
 	category.name,
-    SUM(payment.amount)
+    SUM(payment.amount) AS Total_Revenue
 FROM category
 INNER JOIN film_category ON category.category_id = film_category.category_id
-INNER JOIN film ON film.film_id = film.film_id
-INNER JOIN inventory ON inventory.film_id = film.film_id
+INNER JOIN inventory ON inventory.film_id = film_category.film_id
 INNER JOIN rental ON inventory.inventory_id = rental.inventory_id
 INNER JOIN payment ON rental.rental_id = payment.rental_id
 GROUP BY category.name
