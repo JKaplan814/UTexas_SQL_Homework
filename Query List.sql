@@ -251,3 +251,4 @@ SELECT * FROM Top_Five_Categories;
 -- 8c:
 
 DROP VIEW `sakila`.`top_five_categories`;
+
